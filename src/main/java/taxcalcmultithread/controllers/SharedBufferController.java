@@ -15,7 +15,7 @@ public class SharedBufferController {
     return sharedBuffer.getList().size() == SharedBuffer.BUFFER_CAPACITY;
   }
 
-  public void addItem(Item item) throws InterruptedException {
+  public void addItem(final Item item) throws InterruptedException {
     while (isFull()) {
       wait();
     }
@@ -31,7 +31,7 @@ public class SharedBufferController {
     while (isEmpty()) {
       wait();
     }
-    Item item = sharedBuffer.getList().remove(0);
+    final Item item = sharedBuffer.getList().remove(0);
     notifyAll();
     return item;
   }

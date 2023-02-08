@@ -9,10 +9,16 @@ import taxcalcmultithread.enums.Type;
 public class RawItem extends Item {
 
   @Builder
-  public RawItem(String name, Type type, double price, int quantity, double taxedCost) {
+  public RawItem(
+      final String name,
+      final Type type,
+      final double price,
+      final int quantity,
+      final double taxedCost) {
     super(name, price, quantity, type, taxedCost);
   }
 
+  @Override
   public double calcTaxedCost() {
     return (price * RAW_ITEM_TAX_RATE) / 100.0;
   }

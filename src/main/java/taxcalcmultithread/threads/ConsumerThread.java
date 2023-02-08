@@ -3,7 +3,7 @@ package taxcalcmultithread.threads;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
-import taxcalcmultithread.controllers.DBRepo;
+import taxcalcmultithread.controllers.DbRepo;
 import taxcalcmultithread.controllers.ItemCollectionController;
 import taxcalcmultithread.controllers.SharedBufferController;
 import taxcalcmultithread.models.Item;
@@ -15,7 +15,7 @@ public class ConsumerThread extends Thread {
 
   private ItemCollectionController itemCollectionController;
   private SharedBufferController sharedBufferController;
-  private DBRepo dbRepo;
+  private DbRepo dbRepo;
 
   @Override
   public void run() {
@@ -25,7 +25,7 @@ public class ConsumerThread extends Thread {
           break;
         }
         try {
-          Item item = sharedBufferController.removeItem();
+          final Item item = sharedBufferController.removeItem();
           item.setTaxedCost(item.calcTaxedCost());
           itemCollectionController.addItem(item);
         } catch (InterruptedException e) {

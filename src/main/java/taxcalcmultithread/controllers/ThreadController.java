@@ -9,29 +9,29 @@ import taxcalcmultithread.threads.ProducerThread;
 @Builder
 public class ThreadController {
 
-  private DBRepo dBRepo;
+  private DbRepo dbRepo;
   private ItemCollectionController itemCollectionController;
   private SharedBufferController sharedBufferController;
 
-  public void startProcessing() throws Exception{
-    ConsumerThread consumerThread = ConsumerThread.builder()
+  public void startProcessing() throws Exception {
+    final ConsumerThread consumerThread = ConsumerThread.builder()
         .itemCollectionController(itemCollectionController)
         .sharedBufferController(sharedBufferController)
-        .dbRepo(dBRepo)
+        .dbRepo(dbRepo)
         .build();
 
-    ProducerThread producerThread = ProducerThread.builder()
-        .dBRepo(dBRepo)
+    final ProducerThread producerThread = ProducerThread.builder()
+        .dbRepo(dbRepo)
         .sharedBufferController(sharedBufferController).build();
 
-    try{
+    try {
       consumerThread.start();
       producerThread.start();
 
       consumerThread.join();
       producerThread.join();
-    }catch (Exception e){
-      throw new Exception("The Processing of threads was interrupted",e);
+    } catch (Exception e) {
+      throw new Exception("The Processing of threads was interrupted", e);
     }
   }
 

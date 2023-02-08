@@ -12,7 +12,7 @@ public class ItemCollectionController {
 
   private ItemCollection itemCollection;
 
-  public void addItem(Item item) {
+  public void addItem(final Item item) {
     itemCollection.getItemList().add(item);
   }
 

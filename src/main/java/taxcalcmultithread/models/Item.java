@@ -18,8 +18,13 @@ public abstract class Item {
   protected Type type;
   protected double taxedCost;
 
-  public static Item createItem(String name, String typeString, double price, int quantity) {
-    Type type = Type.valueOf(typeString);
+  public static Item createItem(
+      final String name,
+      final String typeString,
+      final double price,
+      final int quantity) {
+
+    final Type type = Type.valueOf(typeString);
 
     return switch (type) {
       case MANUFACTURED -> ManufacturedItem.builder()

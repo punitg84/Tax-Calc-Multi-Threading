@@ -3,10 +3,14 @@ package taxcalcmultithread;
 import java.sql.SQLException;
 import taxcalcmultithread.view.Application;
 
-public class Main {
+public final class Main {
 
-  public static void main(String args[]) throws SQLException {
-    Application application = new Application();
+  private Main() {
+
+  }
+
+  public static void main(final String[] args) throws SQLException {
+    final Application application = new Application();
     application.run();
   }
 

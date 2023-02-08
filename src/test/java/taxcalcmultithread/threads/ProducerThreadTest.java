@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import taxcalcmultithread.controllers.DBRepo;
+import taxcalcmultithread.controllers.DbRepo;
 import taxcalcmultithread.controllers.SharedBufferController;
 import taxcalcmultithread.models.Item;
 import taxcalcmultithread.models.RawItem;
@@ -22,7 +22,7 @@ class ProducerThreadTest {
   @Mock
   private SharedBufferController sharedBufferControllerMock;
   @Mock
-  private DBRepo dbRepoMock;
+  private DbRepo dbRepoMock;
   @Mock
   private RawItem itemMock;
   @InjectMocks
