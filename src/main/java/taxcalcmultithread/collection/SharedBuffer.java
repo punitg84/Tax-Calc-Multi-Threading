@@ -7,6 +7,8 @@ import taxcalcmultithread.models.Item;
 
 @Getter
 public class SharedBuffer {
+
   List<Item> list = new LinkedList<>();
   public static final int BUFFER_CAPACITY = 2;
+
 }

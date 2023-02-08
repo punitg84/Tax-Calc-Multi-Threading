@@ -31,7 +31,9 @@ public class DBRepo {
   public Item getNext() throws Exception {
     resultSet.next();
     completed = resultSet.isLast();
-    if(completed) conn.endRequest();
+    if (completed) {
+      conn.endRequest();
+    }
     return Item.createItem(resultSet.getString("name"),
         resultSet.getString("type"),
         resultSet.getDouble("price"),

@@ -7,6 +7,7 @@ import taxcalcmultithread.models.Item;
 
 @Getter
 public class ItemCollection {
+
   private final List<Item> itemList = new ArrayList<>();
 
 }

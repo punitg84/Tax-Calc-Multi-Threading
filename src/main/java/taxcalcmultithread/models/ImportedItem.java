@@ -13,8 +13,8 @@ import taxcalcmultithread.enums.Type;
 public class ImportedItem extends Item {
 
   @Builder
-  public ImportedItem(String name, Type type, double price, int quantity,double taxedCost) {
-    super(name, price, quantity, type,taxedCost);
+  public ImportedItem(String name, Type type, double price, int quantity, double taxedCost) {
+    super(name, price, quantity, type, taxedCost);
   }
 
   public double calcTaxedCost() {
@@ -28,4 +28,5 @@ public class ImportedItem extends Item {
     }
     return taxedCost;
   }
+
 }

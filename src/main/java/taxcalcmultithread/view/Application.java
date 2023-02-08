@@ -19,7 +19,8 @@ public class Application {
     DBRepo dBRepo = new DBRepo();
     SharedBufferController sharedBufferController = new SharedBufferController(new SharedBuffer());
     itemCollectionController = new ItemCollectionController(new ItemCollection());
-    threadController = new ThreadController(dBRepo,itemCollectionController,sharedBufferController);
+    threadController =
+        new ThreadController(dBRepo, itemCollectionController, sharedBufferController);
   }
 
   public void startProcessing() throws InterruptedException {
@@ -27,7 +28,7 @@ public class Application {
     printData();
   }
 
-  public void printData(){
+  public void printData() {
     List<Item> itemList = itemCollectionController.getItemList();
     itemList.stream().forEach(System.out::println);
   }

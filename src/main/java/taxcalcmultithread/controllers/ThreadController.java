@@ -12,12 +12,14 @@ public class ThreadController {
   private SharedBufferController sharedBufferController;
 
   public void startProcessing() throws InterruptedException {
-    ConsumerThread consumerThread = new ConsumerThread(itemCollectionController,sharedBufferController,dBRepo);
-    ProducerThread producerThread = new ProducerThread(dBRepo,sharedBufferController);
+    ConsumerThread consumerThread =
+        new ConsumerThread(itemCollectionController, sharedBufferController, dBRepo);
+    ProducerThread producerThread = new ProducerThread(dBRepo, sharedBufferController);
 
     consumerThread.start();
     producerThread.start();
     consumerThread.join();
     producerThread.join();
   }
+
 }

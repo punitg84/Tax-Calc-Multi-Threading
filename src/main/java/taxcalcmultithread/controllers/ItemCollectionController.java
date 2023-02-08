@@ -7,6 +7,7 @@ import taxcalcmultithread.models.Item;
 
 @AllArgsConstructor
 public class ItemCollectionController {
+
   private ItemCollection itemCollection;
 
   public void addItem(Item item) {
