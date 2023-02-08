@@ -1,6 +1,7 @@
 package taxcalcmultithread.threads;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import taxcalcmultithread.controllers.DBRepo;
 import taxcalcmultithread.controllers.ItemCollectionController;
@@ -9,6 +10,7 @@ import taxcalcmultithread.models.Item;
 
 @AllArgsConstructor
 @Log4j2
+@Builder
 public class ConsumerThread extends Thread {
 
   private ItemCollectionController itemCollectionController;
@@ -19,7 +21,6 @@ public class ConsumerThread extends Thread {
   public void run() {
     while (true) {
       synchronized (sharedBufferController) {
-        log.info("Consumer");
         if (sharedBufferController.isEmpty() && dbRepo.isCompleted()) {
           break;
         }

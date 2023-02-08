@@ -5,7 +5,7 @@ import taxcalcmultithread.view.Application;
 
 public class Main {
 
-  public static void main(String args[]) throws SQLException, InterruptedException {
+  public static void main(String args[]) throws SQLException {
     Application application = new Application();
     application.run();
   }

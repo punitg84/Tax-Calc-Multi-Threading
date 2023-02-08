@@ -1,25 +1,38 @@
 package taxcalcmultithread.controllers;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import taxcalcmultithread.threads.ConsumerThread;
 import taxcalcmultithread.threads.ProducerThread;
 
 @AllArgsConstructor
+@Builder
 public class ThreadController {
 
   private DBRepo dBRepo;
   private ItemCollectionController itemCollectionController;
   private SharedBufferController sharedBufferController;
 
-  public void startProcessing() throws InterruptedException {
-    ConsumerThread consumerThread =
-        new ConsumerThread(itemCollectionController, sharedBufferController, dBRepo);
-    ProducerThread producerThread = new ProducerThread(dBRepo, sharedBufferController);
+  public void startProcessing() throws Exception{
+    ConsumerThread consumerThread = ConsumerThread.builder()
+        .itemCollectionController(itemCollectionController)
+        .sharedBufferController(sharedBufferController)
+        .dbRepo(dBRepo)
+        .build();
 
-    consumerThread.start();
-    producerThread.start();
-    consumerThread.join();
-    producerThread.join();
+    ProducerThread producerThread = ProducerThread.builder()
+        .dBRepo(dBRepo)
+        .sharedBufferController(sharedBufferController).build();
+
+    try{
+      consumerThread.start();
+      producerThread.start();
+
+      consumerThread.join();
+      producerThread.join();
+    }catch (Exception e){
+      throw new Exception("The Processing of threads was interrupted",e);
+    }
   }
 
 }

@@ -1,10 +1,12 @@
 package taxcalcmultithread.controllers;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import taxcalcmultithread.collection.SharedBuffer;
 import taxcalcmultithread.models.Item;
 
 @AllArgsConstructor
+@Builder
 public class SharedBufferController {
 
   private SharedBuffer sharedBuffer;
