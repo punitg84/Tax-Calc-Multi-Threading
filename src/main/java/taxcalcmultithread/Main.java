@@ -1,7 +1,11 @@
 package taxcalcmultithread;
 
+import java.sql.SQLException;
+import taxcalcmultithread.view.Application;
+
 public class Main {
-  public static void main(String args[]){
-    System.out.println("Hey");
+  public static void main(String args[]) throws SQLException, InterruptedException {
+    Application application = new Application();
+    application.run();
   }
 }
