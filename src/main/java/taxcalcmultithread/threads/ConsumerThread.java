@@ -9,16 +9,20 @@ import taxcalcmultithread.models.Item;
 
 @AllArgsConstructor
 @Log4j2
-public class ConsumerThread extends Thread{
+public class ConsumerThread extends Thread {
+
   private ItemCollectionController itemCollectionController;
   private SharedBufferController sharedBufferController;
   private DBRepo dbRepo;
 
   @Override
-  public void run(){
-    synchronized (sharedBufferController){
-      while (!sharedBufferController.isEmpty()|| !dbRepo.isCompleted()) {
+  public void run() {
+    while (true) {
+      synchronized (sharedBufferController) {
         log.info("Consumer");
+        if (sharedBufferController.isEmpty() && dbRepo.isCompleted()) {
+          break;
+        }
         try {
           Item item = sharedBufferController.removeItem();
           item.setTaxedCost(item.calcTaxedCost());
@@ -29,4 +33,5 @@ public class ConsumerThread extends Thread{
       }
     }
   }
+
 }

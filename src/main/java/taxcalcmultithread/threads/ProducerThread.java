@@ -14,8 +14,11 @@ public class ProducerThread extends Thread {
 
   @Override
   public void run() {
-    synchronized (sharedBufferController){
-      while (!dBRepo.isCompleted()) {
+    while (true) {
+      synchronized (sharedBufferController) {
+        if (dBRepo.isCompleted()) {
+          break;
+        }
         log.info("Producer");
         try {
           sharedBufferController.addItem(dBRepo.getNext());
@@ -26,7 +29,6 @@ public class ProducerThread extends Thread {
         }
       }
     }
-
   }
 
 }
