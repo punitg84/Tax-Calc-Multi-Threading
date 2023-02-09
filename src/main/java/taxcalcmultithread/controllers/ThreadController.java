@@ -21,8 +21,8 @@ public class ThreadController {
   private SharedBufferController sharedBufferController;
 
   public void startProcessing() throws Exception {
-    List<ProducerThread> producers = new ArrayList<>(NO_OF_PRODUCER_THREAD);
-    List<ConsumerThread> consumers = new ArrayList<>(NO_OF_CONSUMER_THREAD);
+    final List<ProducerThread> producers = new ArrayList<>(NO_OF_PRODUCER_THREAD);
+    final List<ConsumerThread> consumers = new ArrayList<>(NO_OF_CONSUMER_THREAD);
 
     for(int i = 1;i<=NO_OF_PRODUCER_THREAD;i++){
       producers.add(ProducerThread.builder()
@@ -42,10 +42,10 @@ public class ThreadController {
     consumers.stream().forEach(Thread::start);
 
     try {
-      for(ProducerThread producer:producers){
+      for(final ProducerThread producer:producers){
         producer.join();
       }
-      for(ConsumerThread consumer:consumers){
+      for(final ConsumerThread consumer:consumers){
         consumer.join();
       }
     } catch (Exception e) {

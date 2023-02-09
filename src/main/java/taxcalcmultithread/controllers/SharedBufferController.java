@@ -3,7 +3,6 @@ package taxcalcmultithread.controllers;
 import static taxcalcmultithread.constants.ExceptionMessage.ALL_ITEM_PRODUCED_EXCEPTION;
 import static taxcalcmultithread.constants.Threads.NO_OF_PRODUCER_THREAD;
 
-import java.sql.SQLException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,14 +17,13 @@ import taxcalcmultithread.models.Item;
 public class SharedBufferController {
 
   private SharedBuffer sharedBuffer;
+  private int producerCompleted;
 
-  public void incProducerCompleted(){
-    sharedBuffer.setProducerCompleted(sharedBuffer.getProducerCompleted()+1);
-    notifyAll();
-  }
-
-  public int getProducerCompleted(){
-    return sharedBuffer.getProducerCompleted();
+  public void incProducerCompleted() {
+    producerCompleted++;
+    if (producerCompleted == NO_OF_PRODUCER_THREAD) {
+      notifyAll();
+    }
   }
 
   public boolean isFull() {
@@ -49,7 +47,7 @@ public class SharedBufferController {
         getProducerCompleted() != NO_OF_PRODUCER_THREAD) {
       wait();
     }
-    if(isEmpty()){
+    if (isEmpty()) {
       throw new Exception(ALL_ITEM_PRODUCED_EXCEPTION);
     }
     final Item item = sharedBuffer.getList().remove(0);

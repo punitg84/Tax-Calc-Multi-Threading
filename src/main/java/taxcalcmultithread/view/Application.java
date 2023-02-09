@@ -36,17 +36,16 @@ public class Application {
   }
 
   public void startProcessing() throws Exception {
-    long start = System.nanoTime();
+    final long start = System.nanoTime();
     threadController.startProcessing();
-    long end = System.nanoTime();
+    final long end = System.nanoTime();
     log.info("Execution time - "+ (end-start));
     printData();
   }
 
   public void printData() {
     final List<Item> itemList = itemCollectionController.getItemList();
-//    itemList.stream().forEach(log::info);
-    log.info(itemList.size());
+    itemList.stream().forEach(log::info);
   }
 
   public void run() {

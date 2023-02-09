@@ -30,8 +30,8 @@ public class DbRepo {
 
   private void createConnection() throws SQLException {
     try {
-      final String connectionUrl = DbConfig.url;
-      conn = DriverManager.getConnection(connectionUrl, DbConfig.username, DbConfig.password);
+      final String connectionUrl = DbConfig.URL;
+      conn = DriverManager.getConnection(connectionUrl, DbConfig.USERNAME, DbConfig.PASSWORD);
     } catch (SQLException e) {
       throw new SQLException(DB_CONNECTION_EXCEPTION, e);
     }

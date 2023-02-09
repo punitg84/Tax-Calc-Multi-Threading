@@ -3,7 +3,6 @@ package taxcalcmultithread.threads;
 import static taxcalcmultithread.constants.ExceptionMessage.ALL_ITEM_PRODUCED_EXCEPTION;
 import static taxcalcmultithread.constants.ExceptionMessage.ERROR_WHILE_PROCESSING_ITEM;
 
-import java.sql.SQLException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
@@ -25,7 +24,7 @@ public class ProducerThread extends Thread {
 
       while(true){
 
-        Item item = null;
+        Item item;
 
         synchronized (dbRepo){
           item = dbRepo.getNext();
