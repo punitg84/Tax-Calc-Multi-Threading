@@ -1,4 +1,4 @@
-package taxcalcmultithread.controllers;
+package taxcalcmultithread.repositries;
 
 import static taxcalcmultithread.constants.Query.SQL_SELECT_ALL_ITEM;
 
@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 import lombok.Getter;
+import taxcalcmultithread.config.DbConfig;
 import taxcalcmultithread.constants.Fields;
 import taxcalcmultithread.models.Item;
 
@@ -27,8 +28,8 @@ public class DbRepo {
 
   private void createConnection() throws SQLException {
     try {
-      final String connectionUrl = "jdbc:mysql://localhost:3306/test?serverTimezone=UTC";
-      conn = DriverManager.getConnection(connectionUrl, "root", "nuclei@08@04@2001");
+      final String connectionUrl = DbConfig.url;
+      conn = DriverManager.getConnection(connectionUrl, DbConfig.username, DbConfig.password);
     } catch (SQLException e) {
       throw new SQLException("Error while instantiating the sql connection", e);
     }

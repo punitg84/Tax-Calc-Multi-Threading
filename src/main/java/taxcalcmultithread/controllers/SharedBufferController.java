@@ -11,7 +11,7 @@ public class SharedBufferController {
 
   private SharedBuffer sharedBuffer;
 
-  private boolean isFull() {
+  public boolean isFull() {
     return sharedBuffer.getList().size() == SharedBuffer.BUFFER_CAPACITY;
   }
 

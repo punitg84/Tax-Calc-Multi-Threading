@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import taxcalcmultithread.controllers.DbRepo;
+import taxcalcmultithread.repositries.DbRepo;
 import taxcalcmultithread.controllers.SharedBufferController;
 import taxcalcmultithread.models.Item;
 import taxcalcmultithread.models.RawItem;

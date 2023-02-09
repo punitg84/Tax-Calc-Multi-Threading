@@ -2,6 +2,7 @@ package taxcalcmultithread.controllers;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import taxcalcmultithread.repositries.DbRepo;
 import taxcalcmultithread.threads.ConsumerThread;
 import taxcalcmultithread.threads.ProducerThread;
 

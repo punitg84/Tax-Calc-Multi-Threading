@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.extern.log4j.Log4j2;
 import taxcalcmultithread.collection.ItemCollection;
 import taxcalcmultithread.collection.SharedBuffer;
-import taxcalcmultithread.controllers.DbRepo;
+import taxcalcmultithread.repositries.DbRepo;
 import taxcalcmultithread.controllers.ItemCollectionController;
 import taxcalcmultithread.controllers.SharedBufferController;
 import taxcalcmultithread.controllers.ThreadController;
@@ -37,7 +37,7 @@ public class Application {
 
   public void startProcessing() throws Exception {
     threadController.startProcessing();
-    printData();
+    //printData();
   }
 
   public void printData() {
