@@ -37,7 +37,7 @@ public class Application {
 
   public void startProcessing() throws Exception {
     threadController.startProcessing();
-    //printData();
+    printData();
   }
 
   public void printData() {

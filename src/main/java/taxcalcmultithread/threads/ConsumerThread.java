@@ -19,10 +19,8 @@ public class ConsumerThread extends Thread {
 
   @Override
   public void run() {
-    int cnt = 0;
     while (true) {
       synchronized (sharedBufferController) {
-        log.info("Consuming");
         if (sharedBufferController.isEmpty() && dbRepo.isCompleted()) {
           break;
         }
@@ -30,14 +28,11 @@ public class ConsumerThread extends Thread {
           final Item item = sharedBufferController.removeItem();
           item.setTaxedCost(item.calcTaxedCost());
           itemCollectionController.addItem(item);
-          cnt++;
-          Thread.sleep(10000);
         } catch (InterruptedException e) {
           throw new RuntimeException("Error while processing new item",e);
         }
       }
     }
-    log.info("Total consume - "+cnt);
   }
 
 }
