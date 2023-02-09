@@ -18,7 +18,6 @@ public class DbRepo {
 
   private ResultSet resultSet;
   private Connection conn;
-  private boolean completed;
   private PreparedStatement preparedStatement;
 
   public DbRepo() throws SQLException {
@@ -50,24 +49,13 @@ public class DbRepo {
   }
 
   public Item getNext() throws SQLException {
-
-    try {
-      resultSet.next();
-
-      completed = resultSet.isLast();
-      if (completed) {
-        conn.endRequest();
+      if(resultSet.next()){
+        return Item.createItem(resultSet.getString(Fields.NAME),
+            resultSet.getString(Fields.TYPE),
+            resultSet.getDouble(Fields.PRICE),
+            resultSet.getInt(Fields.QUANTITY));
+      }else{
+        throw new SQLException("All Item Processed");
       }
-
-      return Item.createItem(resultSet.getString(Fields.NAME),
-          resultSet.getString(Fields.TYPE),
-          resultSet.getDouble(Fields.PRICE),
-          resultSet.getInt(Fields.QUANTITY));
-
-    } catch (SQLException e) {
-      preparedStatement.close();
-      throw new SQLException("Error while getting next item", e);
-    }
   }
-
 }
