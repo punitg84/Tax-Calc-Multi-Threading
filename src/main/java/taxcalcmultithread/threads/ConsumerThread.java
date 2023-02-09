@@ -21,16 +21,21 @@ public class ConsumerThread extends Thread {
   public void run() {
     while (true) {
       synchronized (sharedBufferController) {
+
         if (sharedBufferController.isEmpty() && dbRepo.isCompleted()) {
           break;
         }
+
         try {
+
           final Item item = sharedBufferController.removeItem();
           item.setTaxedCost(item.calcTaxedCost());
           itemCollectionController.addItem(item);
+
         } catch (InterruptedException e) {
           throw new RuntimeException("Error while processing new item",e);
         }
+
       }
     }
   }

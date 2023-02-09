@@ -18,14 +18,17 @@ public class ProducerThread extends Thread {
   public void run() {
     while (true) {
       synchronized (sharedBufferController) {
+
         if (dbRepo.isCompleted()) {
           break;
         }
+
         try {
           sharedBufferController.addItem(dbRepo.getNext());
         } catch (Exception e) {
           throw new RuntimeException("Error while getting new item",e);
         }
+
       }
     }
   }
