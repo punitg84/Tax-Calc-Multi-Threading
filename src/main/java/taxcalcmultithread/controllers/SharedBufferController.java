@@ -45,7 +45,7 @@ public class SharedBufferController {
 
   public Item removeItem() throws InterruptedException, SQLException {
     while (isEmpty() &&
-        getProducerCompleted() == NO_OF_PRODUCER_THREAD) {
+        getProducerCompleted() != NO_OF_PRODUCER_THREAD) {
       wait();
     }
     if(isEmpty()){

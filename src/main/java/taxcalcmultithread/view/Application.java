@@ -42,7 +42,8 @@ public class Application {
 
   public void printData() {
     final List<Item> itemList = itemCollectionController.getItemList();
-    itemList.stream().forEach(System.out::println);
+    //itemList.stream().forEach(System.out::println);
+    log.info(itemList.size());
   }
 
   public void run() {

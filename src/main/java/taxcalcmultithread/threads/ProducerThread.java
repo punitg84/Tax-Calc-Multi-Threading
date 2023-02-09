@@ -18,29 +18,33 @@ public class ProducerThread extends Thread {
 
   @Override
   public void run() {
-    while (true) {
-      log.info("Producing");
-      try {
+    try {
+
+      while(true){
+
         Item item = null;
+
         synchronized (dbRepo){
           item = dbRepo.getNext();
         }
+
         synchronized (sharedBufferController) {
           sharedBufferController.addItem(item);
         }
-      } catch (SQLException e) {
-        if (e.getMessage().equals("All Item Processed")) {
-          synchronized (sharedBufferController) {
-            log.info("Completed");
-            sharedBufferController.incProducerCompleted();
-          }
-          break;
-        } else {
-          throw new RuntimeException("Error while processing item", e);
-        }
-      } catch (Exception e) {
-        throw new RuntimeException("Error while adding item", e);
+
       }
+    } catch (SQLException e) {
+      if (e.getMessage().equals("All Item Processed")) {
+
+        synchronized (sharedBufferController) {
+          sharedBufferController.incProducerCompleted();
+        }
+
+      } else {
+        throw new RuntimeException("Error while processing item", e);
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Error while adding item", e);
     }
   }
 

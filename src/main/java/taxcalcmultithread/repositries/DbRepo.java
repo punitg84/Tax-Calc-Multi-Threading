@@ -45,17 +45,16 @@ public class DbRepo {
         preparedStatement.closeOnCompletion();
       }
     }
-
   }
 
   public Item getNext() throws SQLException {
-      if(resultSet.next()){
-        return Item.createItem(resultSet.getString(Fields.NAME),
-            resultSet.getString(Fields.TYPE),
-            resultSet.getDouble(Fields.PRICE),
-            resultSet.getInt(Fields.QUANTITY));
-      }else{
-        throw new SQLException("All Item Processed");
-      }
+    if(resultSet.next()){
+      return Item.createItem(resultSet.getString(Fields.NAME),
+          resultSet.getString(Fields.TYPE),
+          resultSet.getDouble(Fields.PRICE),
+          resultSet.getInt(Fields.QUANTITY));
+    }else{
+      throw new SQLException("All Item Processed");
+    }
   }
 }

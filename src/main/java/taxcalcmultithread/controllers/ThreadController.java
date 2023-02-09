@@ -34,7 +34,6 @@ public class ThreadController {
       consumers.add(ConsumerThread.builder()
           .itemCollectionController(itemCollectionController)
           .sharedBufferController(sharedBufferController)
-          .dbRepo(dbRepo)
           .build());
     }
 

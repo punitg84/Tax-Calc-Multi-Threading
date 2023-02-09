@@ -30,7 +30,6 @@ class ProducerThreadTest {
 
   @Test
   void testRun() throws InterruptedException, SQLException {
-    when(dbRepoMock.isCompleted()).thenReturn(false,false,true);
 
     when(dbRepoMock.getNext()).thenReturn(itemMock);
 

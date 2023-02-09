@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,11 +32,7 @@ class ConsumerThreadTest {
   ConsumerThread consumerThreadMock;
 
   @Test
-  void testRun() throws InterruptedException {
-
-    when(dbRepoMock.isCompleted()).thenReturn(false,false,true);
-
-    when(sharedBufferControllerMock.isEmpty()).thenReturn(true,true,true);
+  void testRun() throws InterruptedException, SQLException {
 
     when(sharedBufferControllerMock.removeItem()).thenReturn(itemMock);
 

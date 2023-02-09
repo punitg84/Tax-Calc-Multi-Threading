@@ -18,33 +18,32 @@ public class ConsumerThread extends Thread {
 
   private ItemCollectionController itemCollectionController;
   private SharedBufferController sharedBufferController;
-  private DbRepo dbRepo;
 
   @Override
   public void run() {
-    while (true) {
-      try {
-        log.info("Consuming");
+    try {
+
+      while (true) {
+
         Item item = null;
+
         synchronized (sharedBufferController) {
-          if (sharedBufferController.isEmpty() &&
-              sharedBufferController.getProducerCompleted() == NO_OF_PRODUCER_THREAD) {
-            log.info("Completed");
-            break;
-          }
           item = sharedBufferController.removeItem();
         }
+
         item.setTaxedCost(item.calcTaxedCost());
         itemCollectionController.addItem(item);
-      } catch (SQLException e){
-        if (e.getMessage().equals("All Item Processed")) {
-          break;
-        } else {
-          throw new RuntimeException("Error while processing item", e);
-        }
-      } catch (InterruptedException e) {
-        throw new RuntimeException("Error while processing new item", e);
       }
+    } catch (SQLException e){
+
+      if (e.getMessage().equals("All Item Processed")) {
+        log.info("Completed"+this.getName());
+      } else {
+        throw new RuntimeException("Error while processing item", e);
+      }
+
+    } catch (InterruptedException e) {
+      throw new RuntimeException("Error while processing new item", e);
     }
   }
 
