@@ -5,6 +5,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static taxcalcmultithread.constants.ExceptionMessage.ALL_ITEM_PRODUCED_EXCEPTION;
 
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
@@ -29,9 +30,11 @@ class ProducerThreadTest {
   ProducerThread producerThreadMock;
 
   @Test
-  void testRun() throws InterruptedException, SQLException {
+  void testRun() throws Exception {
 
-    when(dbRepoMock.getNext()).thenReturn(itemMock);
+    when(dbRepoMock.getNext()).thenReturn(itemMock)
+        .thenReturn(itemMock)
+        .thenThrow(new Exception(ALL_ITEM_PRODUCED_EXCEPTION));
 
     doNothing().when(sharedBufferControllerMock).addItem(isA(Item.class));
 

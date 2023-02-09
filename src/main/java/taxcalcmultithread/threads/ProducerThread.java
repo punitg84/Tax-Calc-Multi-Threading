@@ -1,5 +1,8 @@
 package taxcalcmultithread.threads;
 
+import static taxcalcmultithread.constants.ExceptionMessage.ALL_ITEM_PRODUCED_EXCEPTION;
+import static taxcalcmultithread.constants.ExceptionMessage.ERROR_WHILE_PROCESSING_ITEM;
+
 import java.sql.SQLException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,18 +36,16 @@ public class ProducerThread extends Thread {
         }
 
       }
-    } catch (SQLException e) {
-      if (e.getMessage().equals("All Item Processed")) {
+    } catch (Exception e) {
+      if (e.getMessage().equals(ALL_ITEM_PRODUCED_EXCEPTION)) {
 
         synchronized (sharedBufferController) {
           sharedBufferController.incProducerCompleted();
         }
 
       } else {
-        throw new RuntimeException("Error while processing item", e);
+        throw new RuntimeException(ERROR_WHILE_PROCESSING_ITEM, e);
       }
-    } catch (Exception e) {
-      throw new RuntimeException("Error while adding item", e);
     }
   }
 

@@ -1,5 +1,7 @@
 package taxcalcmultithread.threads;
 
+import static taxcalcmultithread.constants.ExceptionMessage.ALL_ITEM_PRODUCED_EXCEPTION;
+import static taxcalcmultithread.constants.ExceptionMessage.ERROR_WHILE_PROCESSING_ITEM;
 import static taxcalcmultithread.constants.Threads.NO_OF_PRODUCER_THREAD;
 
 import java.sql.SQLException;
@@ -32,18 +34,17 @@ public class ConsumerThread extends Thread {
         }
 
         item.setTaxedCost(item.calcTaxedCost());
-        itemCollectionController.addItem(item);
-      }
-    } catch (SQLException e){
 
-      if (e.getMessage().equals("All Item Processed")) {
+        synchronized (itemCollectionController){
+          itemCollectionController.addItem(item);
+        }
+      }
+    } catch (Exception e){
+      if (e.getMessage().equals(ALL_ITEM_PRODUCED_EXCEPTION)) {
         log.info("Completed"+this.getName());
       } else {
-        throw new RuntimeException("Error while processing item", e);
+        throw new RuntimeException(ERROR_WHILE_PROCESSING_ITEM, e);
       }
-
-    } catch (InterruptedException e) {
-      throw new RuntimeException("Error while processing new item", e);
     }
   }
 

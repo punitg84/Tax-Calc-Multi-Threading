@@ -1,5 +1,6 @@
 package taxcalcmultithread.controllers;
 
+import static taxcalcmultithread.constants.ExceptionMessage.ALL_ITEM_PRODUCED_EXCEPTION;
 import static taxcalcmultithread.constants.Threads.NO_OF_PRODUCER_THREAD;
 
 import java.sql.SQLException;
@@ -43,13 +44,13 @@ public class SharedBufferController {
     return sharedBuffer.getList().isEmpty();
   }
 
-  public Item removeItem() throws InterruptedException, SQLException {
+  public Item removeItem() throws Exception {
     while (isEmpty() &&
         getProducerCompleted() != NO_OF_PRODUCER_THREAD) {
       wait();
     }
     if(isEmpty()){
-      throw new SQLException("All Item Processed");
+      throw new Exception(ALL_ITEM_PRODUCED_EXCEPTION);
     }
     final Item item = sharedBuffer.getList().remove(0);
     notifyAll();

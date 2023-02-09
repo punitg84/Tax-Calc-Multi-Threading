@@ -1,5 +1,8 @@
 package taxcalcmultithread.repositries;
 
+import static taxcalcmultithread.constants.ExceptionMessage.ALL_ITEM_PRODUCED_EXCEPTION;
+import static taxcalcmultithread.constants.ExceptionMessage.DB_CONNECTION_EXCEPTION;
+import static taxcalcmultithread.constants.ExceptionMessage.LOADING_DATA_EXCEPTION;
 import static taxcalcmultithread.constants.Query.SQL_SELECT_ALL_ITEM;
 
 import java.sql.Connection;
@@ -30,7 +33,7 @@ public class DbRepo {
       final String connectionUrl = DbConfig.url;
       conn = DriverManager.getConnection(connectionUrl, DbConfig.username, DbConfig.password);
     } catch (SQLException e) {
-      throw new SQLException("Error while instantiating the sql connection", e);
+      throw new SQLException(DB_CONNECTION_EXCEPTION, e);
     }
   }
 
@@ -39,7 +42,7 @@ public class DbRepo {
       preparedStatement = conn.prepareStatement(SQL_SELECT_ALL_ITEM);
       resultSet = preparedStatement.executeQuery();
     } catch (SQLException e) {
-      throw new SQLException("Error while loading data from db", e);
+      throw new SQLException(LOADING_DATA_EXCEPTION, e);
     } finally {
       if (Objects.nonNull(preparedStatement)) {
         preparedStatement.closeOnCompletion();
@@ -47,14 +50,14 @@ public class DbRepo {
     }
   }
 
-  public Item getNext() throws SQLException {
+  public Item getNext() throws Exception {
     if(resultSet.next()){
       return Item.createItem(resultSet.getString(Fields.NAME),
           resultSet.getString(Fields.TYPE),
           resultSet.getDouble(Fields.PRICE),
           resultSet.getInt(Fields.QUANTITY));
     }else{
-      throw new SQLException("All Item Processed");
+      throw new Exception(ALL_ITEM_PRODUCED_EXCEPTION);
     }
   }
 }

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static taxcalcmultithread.constants.ExceptionMessage.ALL_ITEM_PRODUCED_EXCEPTION;
 
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
@@ -20,21 +21,22 @@ import taxcalcmultithread.models.RawItem;
 
 @ExtendWith(MockitoExtension.class)
 class ConsumerThreadTest {
+
   @Mock
   private ItemCollectionController itemCollectionControllerMock;
   @Mock
   private SharedBufferController sharedBufferControllerMock;
-  @Mock
-  private DbRepo dbRepoMock;
   @Mock
   private RawItem itemMock;
   @InjectMocks
   ConsumerThread consumerThreadMock;
 
   @Test
-  void testRun() throws InterruptedException, SQLException {
+  void testRun() throws Exception {
 
-    when(sharedBufferControllerMock.removeItem()).thenReturn(itemMock);
+    when(sharedBufferControllerMock.removeItem()).thenReturn(itemMock)
+        .thenReturn(itemMock)
+        .thenThrow(new Exception(ALL_ITEM_PRODUCED_EXCEPTION));
 
     doNothing().when(itemMock).setTaxedCost(isA(Double.class));
 
@@ -43,7 +45,7 @@ class ConsumerThreadTest {
     consumerThreadMock.start();
     consumerThreadMock.join();
 
-    verify(itemCollectionControllerMock,times(2)).addItem(isA(Item.class));
+    verify(itemCollectionControllerMock, times(2)).addItem(isA(Item.class));
   }
 
 }

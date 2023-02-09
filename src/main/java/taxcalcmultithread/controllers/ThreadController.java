@@ -1,5 +1,6 @@
 package taxcalcmultithread.controllers;
 
+import static taxcalcmultithread.constants.ExceptionMessage.THREAD_INTERRUPTION_EXCEPTION;
 import static taxcalcmultithread.constants.Threads.NO_OF_CONSUMER_THREAD;
 import static taxcalcmultithread.constants.Threads.NO_OF_PRODUCER_THREAD;
 
@@ -48,7 +49,7 @@ public class ThreadController {
         consumer.join();
       }
     } catch (Exception e) {
-      throw new Exception("The Processing of threads was interrupted", e);
+      throw new Exception(THREAD_INTERRUPTION_EXCEPTION, e);
     }
   }
 
