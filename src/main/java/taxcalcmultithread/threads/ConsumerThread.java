@@ -32,13 +32,13 @@ public class ConsumerThread extends Thread {
 
         item.setTaxedCost(item.calcTaxedCost());
 
-        synchronized (itemCollectionController){
+        synchronized (itemCollectionController) {
           itemCollectionController.addItem(item);
         }
       }
-    } catch (Exception e){
+    } catch (Exception e) {
       if (e.getMessage().equals(ALL_ITEM_PRODUCED_EXCEPTION)) {
-        log.info("Completed"+this.getName());
+        log.info("Completed" + this.getName());
       } else {
         throw new RuntimeException(ERROR_WHILE_PROCESSING_ITEM, e);
       }

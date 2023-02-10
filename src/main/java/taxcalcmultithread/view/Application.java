@@ -5,11 +5,11 @@ import java.util.List;
 import lombok.extern.log4j.Log4j2;
 import taxcalcmultithread.collection.ItemCollection;
 import taxcalcmultithread.collection.SharedBuffer;
-import taxcalcmultithread.repositries.DbRepo;
 import taxcalcmultithread.controllers.ItemCollectionController;
 import taxcalcmultithread.controllers.SharedBufferController;
 import taxcalcmultithread.controllers.ThreadController;
 import taxcalcmultithread.models.Item;
+import taxcalcmultithread.repositries.DbRepo;
 
 @Log4j2
 public class Application {
@@ -39,7 +39,7 @@ public class Application {
     final long start = System.nanoTime();
     threadController.startProcessing();
     final long end = System.nanoTime();
-    log.info("Execution time - "+ (end-start));
+    log.info("Execution time - " + (end - start));
     printData();
   }
 

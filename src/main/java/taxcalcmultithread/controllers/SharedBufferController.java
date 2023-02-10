@@ -43,8 +43,7 @@ public class SharedBufferController {
   }
 
   public Item removeItem() throws Exception {
-    while (isEmpty() &&
-        getProducerCompleted() != NO_OF_PRODUCER_THREAD) {
+    while (isEmpty() && getProducerCompleted() != NO_OF_PRODUCER_THREAD) {
       wait();
     }
     if (isEmpty()) {

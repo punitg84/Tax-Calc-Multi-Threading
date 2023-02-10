@@ -6,9 +6,9 @@ import static taxcalcmultithread.constants.ExceptionMessage.ERROR_WHILE_PROCESSI
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
+import taxcalcmultithread.controllers.SharedBufferController;
 import taxcalcmultithread.models.Item;
 import taxcalcmultithread.repositries.DbRepo;
-import taxcalcmultithread.controllers.SharedBufferController;
 
 @AllArgsConstructor
 @Log4j2
@@ -22,11 +22,11 @@ public class ProducerThread extends Thread {
   public void run() {
     try {
 
-      while(true){
+      while (true) {
 
         Item item;
 
-        synchronized (dbRepo){
+        synchronized (dbRepo) {
           item = dbRepo.getNext();
         }
 

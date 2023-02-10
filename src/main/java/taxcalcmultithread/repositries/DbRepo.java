@@ -51,13 +51,14 @@ public class DbRepo {
   }
 
   public Item getNext() throws Exception {
-    if(resultSet.next()){
+    if (resultSet.next()) {
       return Item.createItem(resultSet.getString(Fields.NAME),
           resultSet.getString(Fields.TYPE),
           resultSet.getDouble(Fields.PRICE),
           resultSet.getInt(Fields.QUANTITY));
-    }else{
+    } else {
       throw new Exception(ALL_ITEM_PRODUCED_EXCEPTION);
     }
   }
+
 }
