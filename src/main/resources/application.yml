@@ -1,0 +1,4 @@
+datasource:
+  username: root
+  password: nuclei@08@04@2001
+  url: "jdbc:mysql://localhost:3306/test?serverTimezone=UTC"
